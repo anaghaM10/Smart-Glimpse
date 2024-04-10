@@ -1,0 +1,28 @@
+{% if not suspended %}
+    {% if needRestart %}
+        <div class="small bright">
+            <i class="fas fa-rotate"></i>
+            <span>
+                {% set restartTextLabel = "UPDATE_NOTIFICATION_NEED-RESTART" %}
+                {{ restartTextLabel | translate() | safe }}
+            </span>
+        </div>
+    {% endif %}
+    {% for name, status in updatesList %}
+        <div class="small bright">
+            {% if status.done %}
+                <i class="fas fa-check" style="color: lightgreen;"></i>
+                <span>
+                   {% set updateTextLabel = "UPDATE_NOTIFICATION_DONE" %}
+                   {{ updateTextLabel | translate({MODULE_NAME: name}) | safe }}
+                </span>
+              {% else %}
+                <i class="fas fa-xmark" style="color: red;"></i>
+                <span>
+                    {% set updateTextLabel = "UPDATE_NOTIFICATION_ERROR" %}
+                    {{ updateTextLabel | translate({MODULE_NAME: name}) | safe }}
+                </span>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endif %}
